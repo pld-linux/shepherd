@@ -1,21 +1,21 @@
 Summary:	Shepherd service manager
 Summary(pl.UTF-8):	Zarządca usług Shepherd
 Name:		shepherd
-Version:	0.9.3
+Version:	0.10.1
 Release:	0.1
 License:	GPL v3+ (daemon), FDL v1.3+ (documentation)
 Group:		Daemons
 Source0:	https://ftp.gnu.org/gnu/shepherd/%{name}-%{version}.tar.gz
-# Source0-md5:	94fa25f895773e0d35f8ca2f8c194f2c
+# Source0-md5:	3a6165136a49783793349d3952d51193
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/shepherd/
 BuildRequires:	gettext-tools >= 0.19
 BuildRequires:	guile-devel >= 5:2.2
-BuildRequires:	guile-fibers >= 1.1.0
+BuildRequires:	guile-fibers >= 1.3.0
 BuildRequires:	help2man
 BuildRequires:	texinfo
 Requires:	guile >= 5:2.2
-Requires:	guile-fibers >= 1.1.0
+Requires:	guile-fibers >= 1.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautostrip	.*\.go

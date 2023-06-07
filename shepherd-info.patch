@@ -1,5 +1,5 @@
---- shepherd-0.9.3/doc/shepherd.texi.orig	2022-11-16 11:12:53.000000000 +0100
-+++ shepherd-0.9.3/doc/shepherd.texi	2022-12-14 21:52:44.598914398 +0100
+--- shepherd-0.10.1/doc/shepherd.texi.orig	2023-05-27 22:16:39.000000000 +0200
++++ shepherd-0.10.1/doc/shepherd.texi	2023-06-07 20:40:10.910882050 +0200
 @@ -23,15 +23,12 @@ copy of the license is included in the s
  Documentation License''.
  @end copying
@@ -21,7 +21,7 @@
  @end direntry
  
  @titlepage
-@@ -370,15 +367,15 @@ trouble.  Both @command{shepherd} and he
+@@ -372,15 +369,15 @@ trouble.  Both @command{shepherd} and he
  
  
  @menu
@@ -42,7 +42,7 @@
  @section Invoking @command{shepherd}
  
  @cindex @command{shepherd} Invocation
-@@ -460,7 +457,7 @@ environment variable is defined.
+@@ -472,7 +469,7 @@ environment variable is defined.
  
  If @code{-} is specified as file name, commands will be read from
  standard input, one per line, as would be passed on a @command{herd}
@@ -51,7 +51,7 @@
  
  @item --quiet
  Synonym for @code{--silent}.
-@@ -469,12 +466,12 @@ Synonym for @code{--silent}.
+@@ -481,12 +478,12 @@ Synonym for @code{--silent}.
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -66,7 +66,7 @@
  When running as root, it communicates with the @dfn{system
  instance}---the process with PID@tie{}1; when running as a normal user,
  it communicates with the @dfn{user's instance}, which is a regular,
-@@ -534,7 +531,7 @@ failed.
+@@ -546,7 +543,7 @@ failed.
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -75,7 +75,7 @@
  @section Invoking @command{reboot}
  
  @cindex herd
-@@ -560,7 +557,7 @@ not specified, @file{@var{localstatedir}
+@@ -572,7 +569,7 @@ not specified, @file{@var{localstatedir}
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -84,25 +84,25 @@
  @section Invoking @command{halt}
  
  @cindex herd
-@@ -1215,7 +1212,7 @@ Return a procedure that terminates a sys
- @section Service Examples
+@@ -1322,7 +1319,7 @@ Displays detailed information about ever
+ Evaluate in the @command{shepherd} process the Scheme code in
+ @var{file}, in a fresh module that uses the @code{(shepherd services)}
+ module---as with the @code{--config} option of @command{shepherd}
+-(@pxref{Invoking shepherd}).
++(@pxref{shepherd}).
  
+ @item eval @var{exp}
+ Likewise, evaluate Scheme expression @var{exp} in a fresh module with
+@@ -1438,7 +1435,7 @@ environment variable (@pxref{Environment
+ 
+ @cindex configuration file, examples
  The configuration file of the @command{shepherd} command
 -(@pxref{Invoking shepherd}) defines, registers, and possibly starts
 +(@pxref{shepherd}) defines, registers, and possibly starts
  @dfn{services}.  Each service specifies other services it depends on and
  how it is started and stopped.  The configuration file contains Scheme
  code that uses the programming interface of the @code{(shepherd
-@@ -1421,7 +1418,7 @@ Displays detailed information about ever
- @item load @var{file}
- Evaluate the Scheme code in @var{file} in a fresh module that uses the
- @code{(oop goops)} and @code{(shepherd services)} modules---as with the
--@code{--config} option of @command{shepherd} (@pxref{Invoking shepherd}).
-+@code{--config} option of @command{shepherd} (@pxref{shepherd}).
- 
- @item eval @var{exp}
- Likewise, evaluate Scheme expression @var{exp} in a fresh module with
-@@ -1542,7 +1539,7 @@ Receive a command from @var{port} and re
+@@ -1816,7 +1813,7 @@ Receive a command from @var{port} and re
  @end deffn
  
  In practice, communication with @command{shepherd} takes place over a
@@ -110,4 +110,4 @@
 +Unix-domain socket, as discussed earlier (@pxref{shepherd}).
  Clients may open a connection with the procedure below.
  
- @deffn {procedure} open-connection [@var{file}]
+ @deffn {Procedure} open-connection [@var{file}]
