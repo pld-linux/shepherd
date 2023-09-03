@@ -1,18 +1,19 @@
 Summary:	Shepherd service manager
 Summary(pl.UTF-8):	Zarządca usług Shepherd
 Name:		shepherd
-Version:	0.10.1
+Version:	0.10.2
 Release:	0.1
 License:	GPL v3+ (daemon), FDL v1.3+ (documentation)
 Group:		Daemons
 Source0:	https://ftp.gnu.org/gnu/shepherd/%{name}-%{version}.tar.gz
-# Source0-md5:	3a6165136a49783793349d3952d51193
+# Source0-md5:	6afe8676a82ce5ede5c86e8d55e5dc33
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/shepherd/
 BuildRequires:	gettext-tools >= 0.19
 BuildRequires:	guile-devel >= 5:2.2
 BuildRequires:	guile-fibers >= 1.3.0
 BuildRequires:	help2man
+BuildRequires:	rpmbuild(macros) >= 1.673
 BuildRequires:	texinfo
 Requires:	guile >= 5:2.2
 Requires:	guile-fibers >= 1.3.0
@@ -61,7 +62,8 @@ Zamiennik narzędzi z SysV init.
 
 %build
 %configure \
-	--disable-silent-rules
+	--disable-silent-rules \
+	--with-bash-completion-dir=%{bash_compdir}
 %{__make}
 
 %install
@@ -100,6 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/guile/site/*.*/shepherd
 %dir /var/run/shepherd
 %{systemdtmpfilesdir}/shepherd.conf
+%{bash_compdir}/herd
 %{_infodir}/shepherd.info*
 %{_mandir}/man1/herd.1*
 %{_mandir}/man1/shepherd.1*
