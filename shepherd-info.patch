@@ -1,6 +1,6 @@
---- shepherd-0.10.1/doc/shepherd.texi.orig	2023-05-27 22:16:39.000000000 +0200
-+++ shepherd-0.10.1/doc/shepherd.texi	2023-06-07 20:40:10.910882050 +0200
-@@ -23,15 +23,12 @@ copy of the license is included in the s
+--- shepherd-1.0.0/doc/shepherd.texi.orig	2024-12-09 14:13:36.000000000 +0100
++++ shepherd-1.0.0/doc/shepherd.texi	2024-12-29 15:09:11.851259562 +0100
+@@ -24,15 +24,12 @@ copy of the license is included in the s
  Documentation License''.
  @end copying
  
@@ -21,7 +21,19 @@
  @end direntry
  
  @titlepage
-@@ -372,15 +369,15 @@ trouble.  Both @command{shepherd} and he
+@@ -124,9 +121,9 @@ Shepherd's more advanced features.
+ @chapter Jump Start
+ 
+ The Shepherd comes with two main commands: @command{shepherd}, which is
+-the daemon that manages services (@pxref{Invoking shepherd}), and
++the daemon that manages services (@pxref{shepherd}), and
+ @command{herd}, the command to monitor and control @command{shepherd}
+-(@pxref{Invoking herd}).  The @command{shepherd} command itself may run
++(@pxref{herd}).  The @command{shepherd} command itself may run
+ as an ``init system'', also known as PID@tie{}1@footnote{In that case it
+ is the first process started by the system, hence the process identifier
+ (PID) 1.}, where it manages system services, or as a user, where it
+@@ -275,15 +272,15 @@ trouble.  Both @command{shepherd} and he
  
  
  @menu
@@ -42,16 +54,25 @@
  @section Invoking @command{shepherd}
  
  @cindex @command{shepherd} Invocation
-@@ -472,7 +469,7 @@ environment variable is defined.
+@@ -311,7 +308,7 @@ As the final ``d'' suggests, @command{sh
+ the background, so you will not interact with it directly.  After it is
+ started, @command{shepherd} listens on a socket, usually
+ @file{/var/run/shepherd/socket}; the @dfn{herd} tool sends commands to
+-@command{shepherd} using this socket (@pxref{Invoking herd}).
++@command{shepherd} using this socket (@pxref{herd}).
+ 
+ The @command{shepherd} command accepts the following options:
+ 
+@@ -406,7 +403,7 @@ environment variable is defined.
  
  If @code{-} is specified as file name, commands will be read from
  standard input, one per line, as would be passed on a @command{herd}
 -command line (@pxref{Invoking herd}).
 +command line (@pxref{herd}).
  
- @item --quiet
- Synonym for @code{--silent}.
-@@ -481,12 +478,12 @@ Synonym for @code{--silent}.
+ @item -S
+ @itemx --silent
+@@ -419,12 +416,12 @@ Synonym for @code{--silent}.
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -66,7 +87,7 @@
  When running as root, it communicates with the @dfn{system
  instance}---the process with PID@tie{}1; when running as a normal user,
  it communicates with the @dfn{user's instance}, which is a regular,
-@@ -546,7 +543,7 @@ failed.
+@@ -522,7 +519,7 @@ failed.
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -75,7 +96,7 @@
  @section Invoking @command{reboot}
  
  @cindex herd
-@@ -572,7 +569,7 @@ not specified, @file{@var{localstatedir}
+@@ -561,7 +558,7 @@ This feature is only available on Linux-
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -84,7 +105,7 @@
  @section Invoking @command{halt}
  
  @cindex herd
-@@ -1322,7 +1319,7 @@ Displays detailed information about ever
+@@ -1572,7 +1569,7 @@ Displays detailed information about ever
  Evaluate in the @command{shepherd} process the Scheme code in
  @var{file}, in a fresh module that uses the @code{(shepherd services)}
  module---as with the @code{--config} option of @command{shepherd}
@@ -93,7 +114,16 @@
  
  @item eval @var{exp}
  Likewise, evaluate Scheme expression @var{exp} in a fresh module with
-@@ -1438,7 +1435,7 @@ environment variable (@pxref{Environment
+@@ -1618,7 +1615,7 @@ respawnable services are started, as oth
+ @item kexec
+ On GNU/Linux, reboot straight into a new Linux kernel previously loaded
+ with the @command{kexec -l @var{file}} command.  This is the action
+-invoked by the @command{reboot -k} command.  @xref{Invoking reboot}.
++invoked by the @command{reboot -k} command.  @xref{reboot}.
+ 
+ @end table
+ 
+@@ -1690,7 +1687,7 @@ If in doubt, please get in touch with us
  
  @cindex configuration file, examples
  The configuration file of the @command{shepherd} command
@@ -102,7 +132,38 @@
  @dfn{services}.  Each service specifies other services it depends on and
  how it is started and stopped.  The configuration file contains Scheme
  code that uses the programming interface of the @code{(shepherd
-@@ -1816,7 +1813,7 @@ Receive a command from @var{port} and re
+@@ -1798,7 +1795,7 @@ Let's now look at @dfn{timers}---service
+ chosen calendar events (@pxref{Timers}).  If you ever used systemd
+ timers or the venerable cron, this is similar.  The example below
+ defines a timer that fires twice a day and runs the @command{updatedb}
+-command as root (@pxref{Invoking updatedb,,, find, Finding Files}):
++command as root (@pxref{updatedb,,, find, Finding Files}):
+ 
+ @lisp
+ ;; Import the module for 'make-timer-constructor' & co.
+@@ -2199,8 +2196,8 @@ The command runs from the directory spec
+ @option{--working-directory} option of @command{herd}; it has with the
+ environment variables in @code{default-environment-variables}, augmented
+ with @env{HOME} when running as a different user, with the addition of
+-variables passed with @code{--environment-variable}.  @xref{Invoking
+-herd}, for more info on influential command-line options.
++variables passed with @code{--environment-variable}.  @xref{herd},
++for more info on influential command-line options.
+ 
+ @deffn {Procedure} transient-service [@var{provision}] @
+          [#:requirement '()]
+@@ -2248,8 +2245,8 @@ The command runs from the directory spec
+ @option{--working-directory} option of @command{herd}; it has with the
+ environment variables in @code{default-environment-variables}, augmented
+ with @env{HOME} when running as a different user, with the addition of
+-variables passed with @code{--environment-variable}.  @xref{Invoking
+-herd}, for more info on influential command-line options.
++variables passed with @code{--environment-variable}.  @xref{herd},
++for more info on influential command-line options.
+ 
+ This @code{timer} service can be added to your configuration like so:
+ 
+@@ -2445,7 +2442,7 @@ Receive a command from @var{port} and re
  @end deffn
  
  In practice, communication with @command{shepherd} takes place over a
