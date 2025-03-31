@@ -1,12 +1,12 @@
 Summary:	Shepherd service manager
 Summary(pl.UTF-8):	Zarządca usług Shepherd
 Name:		shepherd
-Version:	1.0.1
+Version:	1.0.3
 Release:	0.1
 License:	GPL v3+ (daemon), FDL v1.3+ (documentation)
 Group:		Daemons
 Source0:	https://ftp.gnu.org/gnu/shepherd/%{name}-%{version}.tar.gz
-# Source0-md5:	7c89bddb22ac9d603cfe7097bf21ed0c
+# Source0-md5:	b6093762d767291ec0d6c8b95453b53b
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/shepherd/
 BuildRequires:	gettext-tools >= 0.19
