@@ -1,23 +1,23 @@
 Summary:	Shepherd service manager
 Summary(pl.UTF-8):	Zarządca usług Shepherd
 Name:		shepherd
-Version:	1.0.3
+Version:	1.0.9
 Release:	0.1
 License:	GPL v3+ (daemon), FDL v1.3+ (documentation)
 Group:		Daemons
 Source0:	https://ftp.gnu.org/gnu/shepherd/%{name}-%{version}.tar.gz
-# Source0-md5:	b6093762d767291ec0d6c8b95453b53b
+# Source0-md5:	69f33fb69f2321c4f59db35e7eb2881a
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/shepherd/
 BuildRequires:	gettext-tools >= 0.19
-BuildRequires:	guile-devel >= 5:3.0
+BuildRequires:	guile-devel >= 5:3.0.9
 BuildRequires:	guile-fibers >= 1.3.0
 BuildRequires:	help2man
 BuildRequires:	rpmbuild(macros) >= 1.673
 BuildRequires:	texinfo
 # timeout
 Requires:	coreutils >= 7.0
-Requires:	guile >= 5:3.0
+Requires:	guile >= 5:3.0.9
 Requires:	guile-fibers >= 1.3.0
 Requires:	gzip
 Suggests:	zstd
@@ -67,7 +67,8 @@ Zamiennik narzędzi z SysV init.
 %build
 %configure \
 	--disable-silent-rules \
-	--with-bash-completion-dir=%{bash_compdir}
+	--with-bash-completion-dir=%{bash_compdir} \
+	--with-zstd=/usr/bin/zstd
 %{__make}
 
 %install
@@ -107,6 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/run/shepherd
 %{systemdtmpfilesdir}/shepherd.conf
 %{bash_compdir}/herd
+%{fish_compdir}/herd.fish
 %{_infodir}/shepherd.info*
 %{_mandir}/man1/herd.1*
 %{_mandir}/man1/shepherd.1*

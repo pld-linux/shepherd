@@ -1,5 +1,5 @@
---- shepherd-1.0.1/doc/shepherd.texi.orig	2025-01-12 17:43:35.000000000 +0100
-+++ shepherd-1.0.1/doc/shepherd.texi	2025-01-18 21:47:20.466619820 +0100
+--- shepherd-1.0.9/doc/shepherd.texi.orig	2025-12-03 16:55:54.000000000 +0100
++++ shepherd-1.0.9/doc/shepherd.texi	2025-12-10 21:45:55.800147667 +0100
 @@ -24,15 +24,12 @@ copy of the license is included in the s
  Documentation License''.
  @end copying
@@ -33,7 +33,7 @@
  as an ``init system'', also known as PID@tie{}1@footnote{In that case it
  is the first process started by the system, hence the process identifier
  (PID) 1.}, where it manages system services, or as a user, where it
-@@ -275,15 +272,15 @@ trouble.  Both @command{shepherd} and he
+@@ -274,15 +271,15 @@ Thus, you start @command{shepherd} once,
  
  
  @menu
@@ -54,25 +54,16 @@
  @section Invoking @command{shepherd}
  
  @cindex @command{shepherd} Invocation
-@@ -311,7 +308,7 @@ As the final ``d'' suggests, @command{sh
- the background, so you will not interact with it directly.  After it is
- started, @command{shepherd} listens on a socket, usually
- @file{/var/run/shepherd/socket}; the @dfn{herd} tool sends commands to
--@command{shepherd} using this socket (@pxref{Invoking herd}).
-+@command{shepherd} using this socket (@pxref{herd}).
+@@ -312,7 +309,7 @@ started, @command{shepherd} listens on a
+ @file{/var/run/shepherd/socket} (this can be changed with the
+ @option{--socket} option or the @env{SHEPHERD_SOCKET} environment
+ variable).  The @dfn{herd} tool sends commands to @command{shepherd}
+-using this socket (@pxref{Invoking herd}).
++using this socket (@pxref{herd}).
  
  The @command{shepherd} command accepts the following options:
  
-@@ -406,7 +403,7 @@ environment variable is defined.
- 
- If @code{-} is specified as file name, commands will be read from
- standard input, one per line, as would be passed on a @command{herd}
--command line (@pxref{Invoking herd}).
-+command line (@pxref{herd}).
- 
- @item -S
- @itemx --silent
-@@ -419,12 +416,12 @@ Synonym for @code{--silent}.
+@@ -433,12 +430,12 @@ Synonym for @code{--silent}.
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -87,7 +78,7 @@
  When running as root, it communicates with the @dfn{system
  instance}---the process with PID@tie{}1; when running as a normal user,
  it communicates with the @dfn{user's instance}, which is a regular,
-@@ -522,7 +519,7 @@ failed.
+@@ -538,7 +535,7 @@ failed.
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -96,7 +87,7 @@
  @section Invoking @command{reboot}
  
  @cindex herd
-@@ -564,7 +561,7 @@ eventual kexec reboot.  Last, if kexec r
+@@ -580,7 +577,7 @@ eventual kexec reboot.  Last, if kexec r
  
  @c @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
  
@@ -105,7 +96,7 @@
  @section Invoking @command{halt}
  
  @cindex herd
-@@ -1575,7 +1572,7 @@ Displays detailed information about ever
+@@ -1627,7 +1624,7 @@ Displays detailed information about ever
  Evaluate in the @command{shepherd} process the Scheme code in
  @var{file}, in a fresh module that uses the @code{(shepherd services)}
  module---as with the @code{--config} option of @command{shepherd}
@@ -114,7 +105,7 @@
  
  @item eval @var{exp}
  Likewise, evaluate Scheme expression @var{exp} in a fresh module with
-@@ -1621,7 +1618,7 @@ respawnable services are started, as oth
+@@ -1673,7 +1670,7 @@ respawnable services are started, as oth
  @item kexec
  On GNU/Linux, reboot straight into a new Linux kernel previously loaded
  with the @command{kexec -l @var{file}} command.  This is the action
@@ -123,7 +114,7 @@
  
  @end table
  
-@@ -1693,7 +1690,7 @@ If in doubt, please get in touch with us
+@@ -1745,7 +1742,7 @@ If in doubt, please get in touch with us
  
  @cindex configuration file, examples
  The configuration file of the @command{shepherd} command
@@ -132,7 +123,7 @@
  @dfn{services}.  Each service specifies other services it depends on and
  how it is started and stopped.  The configuration file contains Scheme
  code that uses the programming interface of the @code{(shepherd
-@@ -1801,7 +1798,7 @@ Let's now look at @dfn{timers}---service
+@@ -1878,7 +1875,7 @@ Let's now look at @dfn{timers}---service
  chosen calendar events (@pxref{Timers}).  If you ever used systemd
  timers or the venerable cron, this is similar.  The example below
  defines a timer that fires twice a day and runs the @command{updatedb}
@@ -141,7 +132,7 @@
  
  @lisp
  ;; Import the module for 'make-timer-constructor' & co.
-@@ -2202,8 +2199,8 @@ The command runs from the directory spec
+@@ -2280,8 +2277,8 @@ The command runs from the directory spec
  @option{--working-directory} option of @command{herd}; it starts with the
  environment variables in @code{default-environment-variables}, augmented
  with @env{HOME} when running as a different user, with the addition of
@@ -152,7 +143,7 @@
  
  @deffn {Procedure} transient-service [@var{provision}] @
           [#:requirement '()]
-@@ -2251,8 +2248,8 @@ The command runs from the directory spec
+@@ -2329,8 +2326,8 @@ The command runs from the directory spec
  @option{--working-directory} option of @command{herd}; it has with the
  environment variables in @code{default-environment-variables}, augmented
  with @env{HOME} when running as a different user, with the addition of
@@ -163,7 +154,7 @@
  
  This @code{timer} service can be added to your configuration like so:
  
-@@ -2448,7 +2445,7 @@ Receive a command from @var{port} and re
+@@ -2560,7 +2557,7 @@ Receive a command from @var{port} and re
  @end deffn
  
  In practice, communication with @command{shepherd} takes place over a
